@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gifting Abhinav 🎁</title>
+
+  <!-- Cute Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- GLOBAL STYLES ---------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffd6e8, #e0c3fc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: background 1s ease;
+    }
+
+    .container {
+      text-align: center;
+      padding: 30px;
+      max-width: 400px;
+      width: 90%;
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.2rem;
+      color: #ff4f9a;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    img {
+      width: 220px;
+      max-width: 100%;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    button {
+      background: linear-gradient(135deg, #ff7eb3, #ff758c);
+      border: none;
+      color: white;
+      padding: 15px 25px;
+      font-size: 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+    }
+
+    /* ---------- CONFETTI ---------- */
+    .confetti {
+      position: fixed;
+      top: -10px;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      animation: fall linear forwards;
+      z-index: 999;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    /* ---------- ANIMATIONS ---------- */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .glow {
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff7eb3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main content container -->
+  <div class="container" id="content"></div>
+
+  <script>
+    // Tracks which screen we are on
+    let step = 0;
+
+    const content = document.getElementById("content");
+
+    // ---------- SCREENS DATA ----------
+    const screens = [
+      {
+        title: "Welcome to Gifting Abhinav 🎁✨",
+        text: "Are you ready for something special?",
+        img: "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif",
+        button: "Click here to see your gift 💖"
+      },
+      {
+        title: "Woah woah… 😜",
+        text: "Someone is VERY eager!",
+        img: "https://media.giphy.com/media/l0MYEqEzwMWFCg8rm/giphy.gif",
+        button: "Okay okay, click again 🙈"
+      },
+      {
+        title: "Hehe 👀💫",
+        text: "Still clicking? You must be REALLY curious",
+        img: "https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif",
+        button: "One more time… maybe 👀"
+      },
+      {
+        title: "Final chance 🎉",
+        text: "This is your final chance… ready?",
+        img: "https://media.giphy.com/media/3ohs7KViF6rA4aan5u/giphy.gif",
+        button: "SHOW ME 🎊"
+      }
+    ];
+
+    // ---------- RENDER NORMAL SCREENS ----------
+    function renderScreen() {
+      const s = screens[step];
+      content.innerHTML = `
+        <h1>${s.title}</h1>
+        <p>${s.text}</p>
+        <img src="${s.img}" alt="gif">
+        <br>
+        <button onclick="nextStep()">${s.button}</button>
+      `;
+    }
+
+    // ---------- FINAL REVEAL ----------
+    function finalReveal() {
+      content.innerHTML = `
+        <h1 class="glow">🎉 HAPPY BIRTHDAY ABHINAV 🥳💖 🎉</h1>
+        <p style="margin-top:15px;">
+          The real gift is… <strong>YOU 🎀</strong><br><br>
+          Wrapped up in love, smiles, and all the happiness in the world.<br><br>
+          Because you are the best gift anyone could ever ask for 💝
+        </p>
+        <img src="https://media.giphy.com/media/3oz8xG5C6VCdH7eY36/giphy.gif" alt="gift">
+      `;
+
+      startConfetti();
+    }
+
+    // ---------- BUTTON HANDLER ----------
+    function nextStep() {
+      step++;
+      if (step < screens.length) {
+        renderScreen();
+      } else {
+        finalReveal();
+      }
+    }
+
+    // ---------- CONFETTI FUNCTION ----------
+    function startConfetti() {
+      for (let i = 0; i < 120; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor =
+          `hsl(${Math.random() * 360}, 100%, 70%)`;
+        confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 5000);
+      }
+    }
+
+    // Initial render
+    renderScreen();
+  </script>
+
+</body>
+</html>
